@@ -1,3 +1,5 @@
+const FollowToggle = require('./follow_toggle')
+
 const APIUtil = require('./api_util')
 
 class UsersSearch {
@@ -30,8 +32,16 @@ class UsersSearch {
       let $a = $("<a></a>");
       $a.text(`${user.username}`);
       $a.attr("href", `href=/users/${user.id}`);
+
+
+      let $button = $(`<button></button>`);
+      let options = { userId: user.id,
+        followState: user.followed ? "followed" : "unfollowed" };
+      new FollowToggle($button, options);
+
       let $li = $(`<li></li>`)
       $li.append($a);
+      $li.append($button);
 
       this.$ul.append($li);
     }
